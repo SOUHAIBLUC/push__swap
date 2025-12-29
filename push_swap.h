@@ -12,12 +12,10 @@ typedef struct s_node
 
 typedef struct s_list
 {
-    int *t_list_a;
-    int *t_list_b;
-    int size_a;
-    int size_b;
-    int capacity_a;
-    int capacity_b;
+    t_node  list_a;
+    t_node  list_b;
+    int     size_a;
+    int     size_b;
 } t_list;
 
 void    push(t_node **list, int value);
