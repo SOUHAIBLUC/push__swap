@@ -1,41 +1,44 @@
 #include "push_swap.h"
 
-t_node *create_node(int value)
+t_node *node_new(int value)
 {
     t_node *new_node = (t_node *)malloc(sizeof(t_node));
     if (!new_node)
         return NULL;
     new_node->value = value;
-    new_node->next = NULL;
-    return (new_node);
+    new_node->next  = NULL;
+    return new_node;
 }
-void push(t_node **list, int value)
+
+void stack_push(t_stack *stack, t_node *node)
 {
-    t_node *new_node = create_node(value);
-    if (!new_node)
+    if (stack == NULL || node == NULL)
         return;
-    new_node->next = *list;
-    *list = new_node;
+    node->next = stack;
+    stack->head = node;
+    stack->size++;
 }
-int pop(t_node **list)
+
+t_node *stack_pop(t_stack *stack)
 {
-    if (*list == NULL)
+    if (stack == NULL || stack->head == NULL)
         return -1;
-    t_node *temp = *list;
-    int popped_value = temp->value;
-    *list = (*list)->next;
-    free(temp);
-    return popped_value;
+    t_node *tmp = stack->head;
+    stack->head = tmp->next;
+    tmp->next = NULL;
+    stack->size--;
+    return tmp;
 }
-void free_list(t_node **list)
+
+void stack_clear(t_stack *stack)
 {
-    t_node *current = *list;
-    t_node *next_node;
+    t_node *current = stack->head;
+    t_node *tmp;
     while (current != NULL)
     {
-        next_node = current->next;
+        tmp = current->next;
         free(current);
-        current = next_node;
+        current = tmp;
     }
-    *list = NULL;
+    stack->head = NULL;
 }

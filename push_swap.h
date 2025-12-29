@@ -10,30 +10,33 @@ typedef struct s_node
     struct s_node   *next;
 } t_node;
 
-typedef struct s_list
+typedef struct s_stack
 {
-    t_node  list_a;
-    t_node  list_b;
-    int     size_a;
-    int     size_b;
-} t_list;
+    t_node  *head;
+    long   size;
+} t_stack;
 
-void    push(t_node **list, int value);
-int     pop(t_node **list);
-t_node  *create_node(int value);
-void    free_list(t_node **list);
+typedef struct s_game
+{
+    t_stack a;
+    t_stack b;
+} t_game;
 
-// Move functions
-void sa(t_node **a);
-void sb(t_node **b);
-void ss(t_node **a, t_node **b);
-void pa(t_node **a, t_node **b);
-void pb(t_node **a, t_node **b);
-void ra(t_node **a);
-void rb(t_node **b);
-void rr(t_node **a, t_node **b);
-void rra(t_node **a);
-void rrb(t_node **b);
-void rrr(t_node **a, t_node **b);
+t_node *node_new(int value);
+void stack_push(t_stack *stack, t_node *node);
+t_node *stack_pop(t_stack *stack);
+void stack_clear(t_stack *stack);
+
+void pa(t_game *game);
+void pb(t_game *game);
+void sa(t_game *game);
+void sb(t_game *game);
+void ss(t_game *game);
+void ra(t_game *game);
+void rb(t_game *game);
+void rr(t_game *game);
+void rra(t_game *game);
+void rrb(t_game *game);
+void rrr(t_game *game);
 
 #endif
