@@ -81,8 +81,7 @@ void sort_five(t_game *game)
 
 
     pb(game);
-
-   
+  
     sort_four(game);
 
   
