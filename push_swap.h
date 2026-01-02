@@ -7,6 +7,7 @@
 typedef struct s_node
 {
     int             value;
+    int             index;
     struct s_node   *next;
 } t_node;
 
@@ -26,6 +27,11 @@ t_node *node_new(int value);
 void stack_push(t_stack *stack, t_node *node);
 t_node *stack_pop(t_stack *stack);
 void stack_clear(t_stack *stack);
+int has_duplicate(t_stack *a, int value);
+int ft_atoi(const char *str);
+int parse_input(int argc, char **argv, t_game *game);
+int is_valid_number(const char *str);
+
 
 void pa(t_game *game);
 void pb(t_game *game);
