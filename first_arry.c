@@ -1,17 +1,17 @@
 #include "push_swap.h"
 
-int *stack_to_array(t_stack *a, int size)
+int *stack_to_array(t_game *game)
 {
     int     *arr;
     int     i;
     t_node  *current;
 
-    arr = malloc(sizeof(int) * size);
+    arr = malloc(sizeof(int) * game->a.size);
     if (!arr)
         return (NULL);
 
     i = 0;
-    current = a->head;
+    current = game->a.head;
     while (current)
     {
         arr[i++] = current->value;
@@ -44,16 +44,16 @@ void sort_array(int *arr, int size)
     }
 }
 
-void assign_indexes(t_stack *a, int *arr, int size)
+void assign_indexes(t_game *game, int *arr)
 {
     t_node  *current;
     int     i;
 
-    current = a->head;
+    current = game->a.head;
     while (current)
     {
         i = 0;
-        while (i < size)
+        while (i < game->a.size)
         {
             if (arr[i] == current->value)
             {

@@ -37,13 +37,9 @@ void sort_four(t_game *game)
     int max;
     t_node *tmp;
 
-    
     pb(game);
-
     sort_three(game);
-
     x = game->b.head->value;
-
     min = game->a.head->value;
     max = game->a.head->value;
     tmp = game->a.head;
@@ -55,15 +51,12 @@ void sort_four(t_game *game)
             max = tmp->value;
         tmp = tmp->next;
     }
-
-
     if (x < min || x > max)
     {
         while (game->a.head->value != min)
             ra(game);
         pa(game);
     }
-   
     else
     {
         while (!(game->a.head->value < x &&

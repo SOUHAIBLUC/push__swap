@@ -39,54 +39,21 @@ void ft_stack_print(t_stack *stack)
     }
     printf("NULL\n");
 }
-t_node *find_min_from(t_node *start)
-{
-    t_node *min_node = start;
-    t_node *current = start->next;
-    
-    while (current != NULL)
-    {
-        if (current->value < min_node->value)
-            min_node = current;
-        current = current->next;
-    }
-    return min_node;
-}
-void algorithm(t_stack *stack)
-{
-    t_node *tmp;
-    tmp = stack->head;
-    while (tmp != NULL)
-    {
-        t_node *min_node = find_min_from(tmp);
-        if (min_node != tmp)
-        {
-            int helper = tmp->value;
-            tmp->value = min_node->value;
-            min_node->value = helper;
-        }
-        
-        tmp = tmp->next;
-    }
-    
-
-}
 
 
 void ft_game_init(t_game *game, int argc, char **argv)
 {
-	if (argc < 2)
-        return ;
+
     int i = 1;
     while (i < argc)
     {
-		long check;
-		check = ft_atoi(argv[i]);
-		if (check == LONG_MAX)
+		
+		if (!parse_input(argc, &argv[i], game))
 		{
 			write(2, "Error\n", 6);
 			stack_clear(&game->a);
 			stack_clear(&game->b);
+            break;
 		}
 		
 		t_node *node = (ft_atoi(argv[i]));
@@ -98,8 +65,10 @@ void ft_game_init(t_game *game, int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_game game;
+    if (argc < 2)
+        return ;
    ft_game_init(&game, argc, argv);
-   algorithm(&game.a);
+   push_swap(&game);
    ft_stack_print(&game.a);
    
 }

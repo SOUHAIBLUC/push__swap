@@ -1,10 +1,10 @@
-NAME = pushswap.a
+NAME = pushswap
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
-SRCS = 
+SRCS = algo.c  algo_five_num.c  first_arry.c  ft_atoi.c  main.c  parsing.c  push.c  revrotate.c  rotate.c  stack_utils.c  swap.c
 
 OBJ = $(SRCS:.c=.o)
 

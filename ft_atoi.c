@@ -24,5 +24,8 @@ long ft_atoi(const char *str)
             return LONG_MAX;
         i++;
     }
+    if (str[i] == '\0')
+        return LONG_MAX;
+    
     return (result * sign);
 }
