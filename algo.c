@@ -59,11 +59,9 @@ int find_max_position(t_game *game)
 
 void push_back_to_a(t_game *game)
 {
-    int size;
     int pos;
     int half;
 
-    size = game->b.size;
     while (game->b.size > 0)
     {
         pos  = find_max_position(game);
@@ -88,14 +86,24 @@ void push_swap(t_game *game)
     int *arr;
     int  chunk;
 
+    if (game->a.size == 1)
+        return;
+
     if (game->a.size == 2)
+    {
         sort_two(game);
+        return;
+    }
     if (game->a.size == 3)
+    {
         sort_three(game);
-    if (game->a.size == 4)
-        sort_four(game);
-    if (game->a.size == 5)
+        return;
+    }
+    if (game->a.size <= 5)
+    {
         sort_five(game);
+        return;
+    }
     else
     {
         arr = stack_to_array(game);

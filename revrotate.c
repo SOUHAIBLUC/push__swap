@@ -2,7 +2,7 @@
 
 void stack_rev_rotate(t_stack *stack)
 {
-    if (stack == NULL || stack->head == NULL)
+    if (stack == NULL || stack->head == NULL || stack->head->next == NULL)
         return;
     t_node *current = stack->head;
     t_node *prev = NULL;

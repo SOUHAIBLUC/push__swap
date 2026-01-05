@@ -3,6 +3,9 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
+#include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_node
 {
@@ -24,29 +27,33 @@ typedef struct s_game
 } t_game;
 
 
-
 t_node *node_new(int value);
-void stack_push(t_stack *stack, t_node *node);
-t_node *stack_pop(t_stack *stack);
-void stack_clear(t_stack *stack);
-int has_duplicate(t_stack *a, int value);
-int ft_atoi(const char *str);
-int parse_input(int argc, char **argv, t_game *game);
-int *stack_to_array(t_game *game);
-void sort_array(int *arr, int size);
+
+
+long ft_atoi(const char *str, int *i);
+bool parse_input(char *argv, t_game *game);
+
 void assign_indexes(t_game *game, int *arr);
 void push_swap(t_game *game);
 void push_back_to_a(t_game *game);
 int find_max_position(t_game *game);
 void push_chunks(t_game *game, int chunk);
 int get_chunk_size(int size);
-int parse_input(int argc, char **argv, t_game *game);
-int has_duplicate(t_stack *a, int value);
+
+t_node *stack_pop(t_stack *stack);
+void stack_clear(t_stack *stack);
+void stack_push_front(t_stack *stack, t_node *node);
+void stack_init(t_stack *stack);
+int *stack_to_array(t_game *game);
+bool stack_isdup(t_stack *a, int value);
+void stack_push_back(t_stack *stack, t_node *node);
+
+int find_min_indix(t_game *game);
 void sort_two(t_game *game);
 void sort_three(t_game *game);
 void sort_four(t_game *game);
 void sort_five(t_game *game);
-
+void sort_array(int *arr, int size);
 
 void pa(t_game *game);
 void pb(t_game *game);

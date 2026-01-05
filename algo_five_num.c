@@ -30,79 +30,51 @@ void sort_three(t_game *game)
         rra(game);
 }
 
-void sort_four(t_game *game)
-{
-    int x;
-    int min;
-    int max;
-    t_node *tmp;
 
-    pb(game);
-    sort_three(game);
-    x = game->b.head->value;
-    min = game->a.head->value;
-    max = game->a.head->value;
-    tmp = game->a.head;
-    while (tmp)
-    {
-        if (tmp->value < min)
-            min = tmp->value;
-        if (tmp->value > max)
-            max = tmp->value;
-        tmp = tmp->next;
-    }
-    if (x < min || x > max)
-    {
-        while (game->a.head->value != min)
-            ra(game);
-        pa(game);
-    }
-    else
-    {
-        while (!(game->a.head->value < x &&
-                 game->a.head->next->value > x))
-            ra(game);
-        pa(game);
-    }
-}
 void sort_five(t_game *game)
 {
-    int x;
-    int min;
-    int max;
+    int value;
+
+    while (game->a.size > 3)
+    {
+        value = find_min_indix(game);
+        if (value <= game->a.size / 2)
+        {
+            while (value--)
+                ra(game);
+        }
+        else
+        {
+            value = game->a.size - value;
+            while (value--)
+                rra(game);
+        }
+        pb(game);
+    }
+    sort_three(game);
+    while (game->b.size > 0)
+        pa(game);
+}
+
+int find_min_indix(t_game *game)
+{
+    int     save;
+    int     indix;
+    int     min;
     t_node *tmp;
 
-
-    pb(game);
-  
-    sort_four(game);
-
-  
-    x = game->b.head->value;
-
-    min = game->a.head->value;
-    max = game->a.head->value;
-    tmp = game->a.head;
+    indix = 0;
+    min   = game->a.head->value;
+    tmp   = game->a.head;
     while (tmp)
     {
         if (tmp->value < min)
-            min = tmp->value;
-        if (tmp->value > max)
-            max = tmp->value;
+        {
+            min  = tmp->value;
+            save = indix;
+        }
+        indix++;
         tmp = tmp->next;
     }
-
-    if (x < min || x > max)
-    {
-        while (game->a.head->value != min)
-            ra(game);
-        pa(game);
-    }
-    else
-    {
-        while (!(game->a.head->value < x &&
-                 game->a.head->next->value > x))
-            ra(game);
-        pa(game);
-    }
+    return save;
 }

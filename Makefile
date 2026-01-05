@@ -1,6 +1,6 @@
 NAME = pushswap
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 AR = ar rcs
 RM = rm -f
 
@@ -9,8 +9,8 @@ SRCS = algo.c  algo_five_num.c  first_arry.c  ft_atoi.c  main.c  parsing.c  push
 OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
-$(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+$(NAME): $(OBJ) 
+				$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 clean:

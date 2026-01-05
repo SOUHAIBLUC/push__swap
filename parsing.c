@@ -1,43 +1,41 @@
 #include "push_swap.h"
 
-int parse_input(int argc, char **argv, t_game *game)
+bool parse_input(char *str, t_game *game)
 {
-    int     i;
     long    value;
     t_node *new_node;
 
-    while (argc-- > 1)
+    int i = 0;
+    while (str[i])
     {
-        i = 0;
-        while (argv[argc][i])
-        {
-            while (argv[argc][i] == ' ')
-                i++;
-            if (argv[argc][i] == '\0')
-                break;
-            value = ft_atoi(&argv[argc][i]);
-            if (value < -2147483648 || value > 2147483647)
-                return -1;
-            if (has_duplicate(&game->a, value))
-                return -1;
-            new_node = node_new(value);
-            if (!new_node)
-                return -1;
-            stack_push(&game->a, new_node);
-        }
+
+        value = ft_atoi(str, &i);
+
+        while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+            i++;
+
+        if (value < INT_MIN || value > INT_MAX)
+            return false;
+        if (stack_isdup(&game->a, value))
+            return false;
+        new_node = node_new(value);
+        if (!new_node)
+            return false;
+        stack_push_back(&game->a, new_node);
     }
-    return 0;
+
+    return true;
 }
 
-int has_duplicate(t_stack *a, int value)
+bool stack_isdup(t_stack *a, int value)
 {
     t_node *current = a->head;
 
     while (current)
     {
         if (current->value == value)
-            return 1;
+            return true;
         current = current->next;
     }
-    return 0;
+    return false;
 }
