@@ -3,111 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: so-ait-l <so-ait-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:49 by marvin            #+#    #+#             */
-/*   Updated: 2026/01/06 21:04:49 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/07 18:48:26 by so-ait-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "push_swap.h"
 
-
-bool is_sorted(t_stack *stack)
+void	game_clear(t_game *game)
 {
-    t_node *current;
+	stack_clear(&game->a);
+	stack_clear(&game->b);
+}
 
-    if (stack->size < 2)
-        return (true);
-    current = stack->head;
-    while (current && current->next)
-    {
-        if (current->value > current->next->value)
-            return (false);
-        current = current->next;
-    }
-    return (true);
-}
-int exec_instruction(char *line, t_game *game)
+int	exec_instruction(char *line, t_game *game)
 {
-    if (ft_strcmp(line, "sa\n") == 0)
-        sa(game);
-    else if (ft_strcmp(line, "sb\n") == 0)
-        sb(game);
-    else if (ft_strcmp(line, "ss\n") == 0)
-        ss(game);
-    else if (ft_strcmp(line, "pa\n") == 0)
-        pa(game);
-    else if (ft_strcmp(line, "pb\n") == 0)
-        pb(game);
-    else if (ft_strcmp(line, "ra\n") == 0)
-        ra(game);
-    else if (ft_strcmp(line, "rb\n") == 0)
-        rb(game);
-    else if (ft_strcmp(line, "rr\n") == 0)
-        rr(game);
-    else if (ft_strcmp(line, "rra\n") == 0)
-        rra(game);
-    else if (ft_strcmp(line, "rrb\n") == 0)
-        rrb(game);
-    else if (ft_strcmp(line, "rrr\n") == 0)
-        rrr(game);
-    else
-        return (-1);
-    return (0);
+	if (ft_strcmp(line, "sa\n") == 0)
+		sa(game, false);
+	else if (ft_strcmp(line, "sb\n") == 0)
+		sb(game, false);
+	else if (ft_strcmp(line, "ss\n") == 0)
+		ss(game, false);
+	else if (ft_strcmp(line, "pa\n") == 0)
+		pa(game, false);
+	else if (ft_strcmp(line, "pb\n") == 0)
+		pb(game, false);
+	else if (ft_strcmp(line, "ra\n") == 0)
+		ra(game, false);
+	else if (ft_strcmp(line, "rb\n") == 0)
+		rb(game, false);
+	else if (ft_strcmp(line, "rr\n") == 0)
+		rr(game, false);
+	else if (ft_strcmp(line, "rra\n") == 0)
+		rra(game, false);
+	else if (ft_strcmp(line, "rrb\n") == 0)
+		rrb(game, false);
+	else if (ft_strcmp(line, "rrr\n") == 0)
+		rrr(game, false);
+	else
+		return (-1);
+	return (0);
 }
+
 int	read_and_execute(t_game *game)
 {
-	char	*line;
+	char	line[10];
+	int		size;
 
-	line = get_next_line(0);
-	while (line)
+	while (true)
 	{
+		size = read(0, &line, 9);
+		if (size == 0)
+			break ;
+		line[size] = '\0';
 		if (exec_instruction(line, game) == -1)
 		{
-			free(line);
 			write(2, "Error\n", 6);
 			return (-1);
 		}
-		free(line);
-		line = get_next_line(0);
 	}
 	return (0);
 }
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_game game;
+	t_game	game;
 
-    if (argc < 2)
-        return (0);
-    stack_init(&game.a);
-    stack_init(&game.b);
-    for (int i = 1; i < argc; i++)
-    {
-        if (!parse_input(argv[i], &game))
-        {
-            write(2, "Error\n", 6);
-            stack_clear(&game.a);
-            stack_clear(&game.b);
-            return (1);
-        }
-    }
-
-    if (read_and_execute(&game) == -1)
-    {
-        stack_clear(&game.a);
-        stack_clear(&game.b);
-        return (1);
-    }
-
-    if (is_sorted(&game.a) && game.b.size == 0)
-        write(1, "OK\n", 3);
-    else
-        write(1, "KO\n", 3);
-
-    stack_clear(&game.a);
-    stack_clear(&game.b);
-    return (0);
+	if (argc < 2)
+		return (0);
+	ft_game_init(&game, argc, argv);
+	if (read_and_execute(&game) == -1)
+	{
+		game_clear(&game);
+		return (1);
+	}
+	if (is_sorted(&game.a) && game.b.size == 0)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	game_clear(&game);
+	return (0);
 }

@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: so-ait-l <so-ait-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 09:55:45 by so-ait-l          #+#    #+#             */
-/*   Updated: 2026/01/07 13:06:00 by so-ait-l         ###   ########.fr       */
+/*   Created: 2026/01/07 15:35:47 by so-ait-l          #+#    #+#             */
+/*   Updated: 2026/01/07 15:40:51 by so-ait-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack *stack_a, t_stack *stack_b)
+void	ft_game_init(t_game *game, int argc, char **argv)
 {
-	t_node	*tmp;
+	int	i;
 
-	if (stack_a->head == NULL || stack_a->size == 0)
-		return ;
-	tmp = stack_pop(stack_a);
-	stack_push_front(stack_b, tmp);
-}
-
-void	pa(t_game *game, bool print)
-{
-	push(&game->b, &game->a);
-	if (print)
-		write(1, "pa\n", 3);
-}
-
-void	pb(t_game *game, bool print)
-{
-	push(&game->a, &game->b);
-	if (print)
-		write(1, "pb\n", 3);
+	i = 1;
+	stack_init(&game->a);
+	stack_init(&game->b);
+	while (i < argc)
+	{
+		if (!parse_input(argv[i], game))
+		{
+			stack_clear(&game->a);
+			stack_clear(&game->b);
+			break ;
+		}
+		i++;
+	}
 }

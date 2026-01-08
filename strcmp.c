@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   strcmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: so-ait-l <so-ait-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 09:55:45 by so-ait-l          #+#    #+#             */
-/*   Updated: 2026/01/07 13:06:00 by so-ait-l         ###   ########.fr       */
+/*   Created: 2026/01/07 12:38:50 by so-ait-l          #+#    #+#             */
+/*   Updated: 2026/01/07 16:23:01 by so-ait-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack *stack_a, t_stack *stack_b)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_node	*tmp;
+	size_t	i;
 
-	if (stack_a->head == NULL || stack_a->size == 0)
-		return ;
-	tmp = stack_pop(stack_a);
-	stack_push_front(stack_b, tmp);
-}
-
-void	pa(t_game *game, bool print)
-{
-	push(&game->b, &game->a);
-	if (print)
-		write(1, "pa\n", 3);
-}
-
-void	pb(t_game *game, bool print)
-{
-	push(&game->a, &game->b);
-	if (print)
-		write(1, "pb\n", 3);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
